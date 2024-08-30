@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* Eye care theme */
+
+[data-theme="eyecare"] {
+    --p: 200 65% 45%;
+    --pf: 200 65% 40%;
+    --pc: 0 0% 100%;
+    --s: 180 40% 40%;
+    --sf: 180 40% 35%;
+    --sc: 0 0% 100%;
+    --a: 150 40% 40%;
+    --af: 150 40% 35%;
+    --ac: 0 0% 100%;
+    --n: 200 15% 40%;
+    --nf: 200 15% 35%;
+    --nc: 0 0% 100%;
+    --b1: 60 20% 92%;
+    --b2: 60 25% 96%;
+    --b3: 60 25% 98%;
+    --bc: 200 15% 25%;
+    --in: 206 100% 45%;
+    --su: 150 80% 35%;
+    --wa: 40 100% 45%;
+    --er: 0 100% 45%;
+}
+
+.typing {
+    display: flex;
+    align-items: center;
+    height: 17px;
+}
+
+.typing .dot {
+    animation: mercuryTypingAnimation 1.8s infinite ease-in-out;
+    background-color: #6b7280;
+    border-radius: 50%;
+    height: 7px;
+    margin-right: 4px;
+    vertical-align: middle;
+    width: 7px;
+    display: inline-block;
+}
+
+.typing .dot:nth-child(1) {
+    animation-delay: 200ms;
+}
+
+.typing .dot:nth-child(2) {
+    animation-delay: 300ms;
+}
+
+.typing .dot:nth-child(3) {
+    animation-delay: 400ms;
+}
+
+.typing .dot:last-child {
+    margin-right: 0;
+}
+
+@keyframes mercuryTypingAnimation {
+    0% {
+        transform: translateY(0px);
+        background-color: #6b7280;
+    }
+    28% {
+        transform: translateY(-7px);
+        background-color: #9ca3af;
+    }
+    44% {
+        transform: translateY(0px);
+        background-color: #6b7280;
+    }
+}
+
+@media (max-width: 640px) {
+    .chat-bubble {
+        max-width: 80%;
+    }
+}

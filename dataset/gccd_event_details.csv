@@ -1,0 +1,27 @@
+Start_Time,End_Time,Title,Owner
+09:00,09:10,Welcome Note,GDG Cloud Pune
+09:10,09:30,From Code to Production on Google Cloud,Romin Irani
+09:30,09:50,Infrastructure as Code (IAC) with Google Cloud Platform (GCP),Sanket Bisne
+09:50,10:10,Streamlining Continuous Delivery with Spinnaker: Best Practices and Real-World Use Cases,Dheeraj Choudhary
+10:10,10:30,Enterprise Database migration and Alloy DB,Pritam Sahoo
+10:30,10:40,Activity,GDG Cloud Pune
+10:40,11:00,Accelerate your TF models with XLA,Sayak Paul
+11:00,11:20,Where Should I Run My Stuff? Choosing Compute Options,Vaibhav Malpani
+11:20,11:40,Google BigQuery - Heart of Smart Analytics toolset on Google Cloud,Vijaykumar Jangamashetti
+11:40,12:00,CI/CD on Google Cloud,Dharmesh Vaya
+12:00,12:10,Google Cloud simplifies Zero Trust Approach,Saurabh Mishra
+12:10,12:30,Solving Problem with GCP Data Analytics,Murari Ramuka
+12:30,13:30,Lunch,
+13:30,13:50,Workload Identity A Keyless Way to Invoke Google APIs,Kamesh Sampath
+13:50,14:00,Security Monitoring on Google Cloud,Jitendra Gupta
+14:00,14:20,Introduction to Graph Data Science,Yogesh Kulkarni
+14:20,14:40,Job Scheduling on Google Cloud,Anubhav Singh
+14:40,14:50,Road to Google Cloud Certification,Mayur Rathi
+14:50,15:10,Where to keep my stuff?,Sakshi Khandelwal
+15:10,15:30,Break,
+15:30,15:50,Container Security for Enterprise Kubernetes environments,Imran Roshan
+15:50,16:10,Future of Cloud Computing - Hybrid/Multi Cloud,Abhishek Sharma
+16:10,16:30,Firebase for Web or Building Web Solution with Firebase,Vrijraj Singh
+16:30,16:50,Diving into service mesh with Istio,Tanuj Vishnoi
+16:50,17:00,Microservice orchestration with GCP's serverless offerings,Praveen Thirumurugan
+17:10,17:40,End Note,GDG Cloud Pune
