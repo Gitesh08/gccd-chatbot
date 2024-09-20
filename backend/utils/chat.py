@@ -21,7 +21,7 @@ PINECONE_API_KEY = load_dotenv("PINECONE_API_KEY")
 PINECONE_ENVIRONMENT = "us-east-1"
 
 pc = Pinecone(api_key=PINECONE_API_KEY, environment=PINECONE_ENVIRONMENT)
-index_name = "gccd-pune-event"
+index_name = "gccd-pune-event-2024"
 index = pc.Index(index_name)
 
 # Device setup (CPU/GPU)
@@ -85,7 +85,7 @@ def get_gemini_response(prompt):
                 "temperature": 0.7,
                 "top_p": 0.9,
                 "top_k": 40,
-                "max_output_tokens": 1024,
+                "max_output_tokens": 2048,
             }
         )
         
@@ -93,6 +93,60 @@ def get_gemini_response(prompt):
     except Exception as e:
         print(f"Error in get_gemini_response: {e}")
         return "I'm having trouble right now. Can we try again?"
+
+def format_response(response):
+    def convert_table(match):
+        lines = match.group(1).strip().split('\n')
+        html_table = "<table style='border-collapse: collapse; width: 100%; font-size: 0.6em;'>"
+        for i, line in enumerate(lines):
+            if i == 1 and set(line.strip()) <= set('|-'):  # Skip separator line
+                continue
+            cells = [cell.strip() for cell in line.split('|') if cell.strip() != '']
+            if not cells:  # Skip empty rows
+                continue
+            html_table += "<tr>"
+            cell_tag = "th" if i == 0 else "td"
+            for cell in cells:
+                html_table += f"<{cell_tag} style='border: 1px solid #ddd; padding: 8px; text-align: left;'>{cell if cell else '&nbsp;'}</{cell_tag}>"
+            html_table += "</tr>"
+        html_table += "</table>"
+        return html_table
+
+    # Convert markdown tables to HTML
+    response = re.sub(r'((?:\n\|.*)+)', lambda m: convert_table(m), response)
+
+    # Convert numbered lists and bullet points
+    response = re.sub(r'(?m)^(\d+)\.\s', r'<br>\1. ', response)
+    response = re.sub(r'(?m)^•\s', r'<br>• ', response)
+
+    # Add bold to headings and important phrases
+    response = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', response)
+    
+    # Replace double line breaks first
+    response = response.replace('\n\n', '<br><br>')
+
+    # Add emphasis to key phrases
+    response = re.sub(r'\*(.*?)\*', r'<em>\1</em>', response)
+
+    # Handle specific formatting for time and speaker roles
+    response = re.sub(r'(\d{1,2}:\d{2} [AP]M)', r'<strong>\1</strong>', response)
+    response = re.sub(r'(@\w+)', r'<em>\1</em>', response)
+
+
+    # Replace single line breaks after replacing double line breaks
+    response = response.replace('\n', '<br>')
+
+    # Remove any leading/trailing whitespace and extra new lines
+    response = response.strip()
+    response = re.sub(r'^(<br>)+|(<br>)+$', '', response)
+
+    # Remove extra spaces between HTML tags
+    response = re.sub(r'>\s+<', '><', response)
+
+    # Remove extra spaces after new lines
+    response = re.sub(r'<br>\s+', '<br>', response)
+
+    return response.strip()
 
 def clean_response(response):
     # Remove any "Human:" or "Assistant:" prefixes
@@ -132,7 +186,9 @@ def format_event_info(events):
     formatted_info = []
     for event in events[:3]:  # Limit to top 3 events for conciseness
         info = f"{event.get('Title', 'N/A')} (Start: {event.get('Start_Time', 'N/A')}, " \
-               f"End: {event.get('End_Time', 'N/A')}, Owner: {event.get('Owner', 'N/A')})"
+               f"End: {event.get('End_Time', 'N/A')}, " \
+               f"Owner: {event.get('Owner', 'N/A')}, " \
+               f"Designation: {event.get('Designation', 'N/A')})"
         formatted_info.append(info)
     
     return ". ".join(formatted_info)
@@ -165,13 +221,12 @@ def generate_response(session_id, human_prompt):
     
     response = get_gemini_response(prompt)
     response = clean_response(response)
+    formatted_response = format_response(response)
     update_conversation_history(session_id, "Human", human_prompt)
     update_conversation_history(session_id, "Assistant", response)
     
-    response_text = re.sub(r'\s+', ' ', response).strip()
-    
     response_data = {
-        "response": response_text,
+        "response": formatted_response,
     }
     return response_data
 

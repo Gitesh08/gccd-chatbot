@@ -5,37 +5,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GCCD Pune Chatbot</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link href="styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="min-h-screen flex flex-col">
-    <div class="container mx-auto p-2 sm:p-4 flex-grow flex flex-col">
-        <header class="flex justify-between items-center mb-4">
-            <a href="#" class="btn btn-ghost normal-case text-xl flex items-center" aria-label="GCCD Pune Home">
-                <img src="/api/placeholder/32/32" alt="GCCD Pune Logo" class="w-8 h-8 mr-2">
-                <span class="gradient-text">GCCD Pune</span>
-            </a>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <button id="new-chat" class="icon-button">&#43;</button>
+            <h1>GCCD Pune Chatbot</h1>
             <div class="dropdown dropdown-end">
-                <label tabindex="0" class="btn btn-ghost btn-circle">
-                    <i id="theme-icon" class="fas fa-sun text-lg sm:text-xl"></i>
+                <label tabindex="0" class="icon-button">
+                    <i id="theme-icon" class="fas fa-sun"></i>
                 </label>
-                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><a onclick="setTheme('light')"><i class="fas fa-sun mr-2"></i>Light</a></li>
-                    <li><a onclick="setTheme('dark')"><i class="fas fa-moon mr-2"></i>Dark</a></li>
-                    <li><a onclick="setTheme('eyecare')"><i class="fas fa-eye mr-2"></i>Eye Care</a></li>
-                </ul>
+                <div class="dropdown-content">
+                    <ul>
+                        <li><a onclick="setTheme('light')"><i class="fas fa-sun mr-2"></i>  Light</a></li>
+                        <li><a onclick="setTheme('dark')"><i class="fas fa-moon mr-2"></i>  Dark</a></li>
+                        <li><a onclick="setTheme('eyecare')"><i class="fas fa-eye mr-2"></i>  Eye Care</a></li>
+                    </ul>
+                </div>
             </div>
-        </header>
-        <div id="chat-container" class="bg-base-100 rounded-lg shadow-xl p-2 sm:p-4 flex-grow overflow-y-auto mb-4 text-sm sm:text-base"></div>
-        <form id="chat-form" class="flex">
-            <input type="text" id="user-input" class="input input-bordered flex-grow rounded-r-none text-sm sm:text-base" placeholder="Type your message...">
-            <button type="submit" class="btn btn-primary rounded-l-none text-sm sm:text-base">Send</button>
-        </form>
+        </div>
+        <div id="chat-messages" class="chat-messages">
+            <div class="message">
+                <div class="avatar ai-avatar">
+                    <img src="/frontend/assets/ai-icon.png" alt="AI" width="30" height="30">
+                </div>
+                <div class="message-content">Hello! How can I assist you today? 😊</div>
+            </div>
+        </div>
+        <div class="input-container">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Ask anything!">
+            <button id="send-button" class="send-button">&#10148;</button>
+        </div>
+        <div class="disclaimer">
+            <span>Built by</span>
+            <img src="/frontend/assets/gdg-cloud-pune.svg" alt="GDG Cloud Pune" style="height: 1em; vertical-align: middle; margin-left: 0.5em;">
+        </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"></script>
     <script src="script.js"></script>
 </body>
 

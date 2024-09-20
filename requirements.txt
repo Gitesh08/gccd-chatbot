@@ -12,3 +12,6 @@ pinecone
 google-generativeai 
 pinecone-client
 torch
+pandas
+fastapi-limiter 
+slowapi

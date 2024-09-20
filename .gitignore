@@ -9,3 +9,6 @@ tailwind.config.js
 venv/pyvenv.cfg
 venv/Lib/
 .env
+backend/utils/gccd-data-embeddings.py
+dataset/
+dataset/*

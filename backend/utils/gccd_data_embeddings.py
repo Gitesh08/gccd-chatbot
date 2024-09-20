@@ -8,7 +8,7 @@ import re
 import json
 
 # Load the dataset
-df = pd.read_csv('./dataset/gccd_event_details.csv')
+df = pd.read_csv('./dataset/gccd-event-details-2024.csv')
 
 # Initialize the model
 model = SentenceTransformer('sangmini/msmarco-cotmae-MiniLM-L12_en-ko-ja')
@@ -19,7 +19,8 @@ def combine_and_normalize(row):
         str(row['Start_Time']),
         str(row['End_Time']),
         str(row['Title']),
-        str(row['Owner'])
+        str(row['Owner']),
+        str(row['Designation']),
     ]
     return ' | '.join(filter(lambda x: 'nan' not in x.lower(), features))
 
@@ -30,7 +31,7 @@ df['combined_features'] = df.apply(combine_and_normalize, axis=1)
 pc = Pinecone(api_key=os.environ.get("PINECONE_API_KEY"))
 
 # Create or connect to an index
-index_name = "gccd-pune-event"
+index_name = "gccd-pune-event-2024"
 if index_name not in pc.list_indexes().names():
     pc.create_index(
         name=index_name,
@@ -79,7 +80,7 @@ for i in tqdm(range(0, len(df), batch_size)):
         vectors = embeddings.tolist()
         
         # Prepare metadata
-        metadata = batch[['Start_Time', 'End_Time', 'Title', 'Owner']].to_dict('records')
+        metadata = batch[['Start_Time', 'End_Time', 'Title', 'Owner','Designation']].to_dict('records')
         
         # Handle empty values and validate metadata
         for j, meta in enumerate(metadata):
